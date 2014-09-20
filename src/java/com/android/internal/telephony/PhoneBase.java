@@ -244,9 +244,6 @@ public abstract class PhoneBase extends Handler implements Phone {
     protected final RegistrantList mSimRecordsLoadedRegistrants
             = new RegistrantList();
 
-    protected final RegistrantList mModifyCallResponseRegistrants
-            = new RegistrantList();
-
     protected Looper mLooper; /* to insure registrants are in correct thread*/
 
     protected final Context mContext;
@@ -790,15 +787,6 @@ public abstract class PhoneBase extends Handler implements Phone {
         UiccCardApplication uiccApplication = mUiccApplication.get();
         if (uiccApplication == null) return null;
         return uiccApplication.getIccFileHandler();
-    }
-
-    /**
-     * Retrieves the IccRecords of the Phone instance
-     */
-    public IccRecords getIccRecords(){
-        UiccCardApplication uiccApplication = mUiccApplication.get();
-        if (uiccApplication == null) return null;
-        return uiccApplication.getIccRecords();
     }
 
     /*
@@ -1613,12 +1601,6 @@ public abstract class PhoneBase extends Handler implements Phone {
                 + this);
     }
 
-    public void registerForModifyCallResponse(Handler h, int what, Object obj)
-            throws CallStateException {
-        throw new CallStateException(
-                "registerForModifyCallResponse is not supported in this phone "  + this);
-    }
-
     /*
      * To check VT call capability
      */
@@ -1629,11 +1611,6 @@ public abstract class PhoneBase extends Handler implements Phone {
     public void unregisterForModifyCallRequest(Handler h) throws CallStateException {
         throw new CallStateException(
                 "unregisterForModifyCallRequest is not supported in this phone " + this);
-    }
-
-    public void unregisterForModifyCallResponse(Handler h) throws CallStateException {
-        throw new CallStateException(
-                "unregisterForModifyCallResponse is not supported in this phone " + this);
     }
 
     public void registerForAvpUpgradeFailure(Handler h, int what, Object obj)
